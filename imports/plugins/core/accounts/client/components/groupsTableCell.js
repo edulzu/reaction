@@ -5,11 +5,14 @@ import { getGravatar } from "../helpers/accountsHelper";
 import { Button, MenuItem, DropDownMenu } from "@reactioncommerce/reaction-ui";
 
 const GroupsTableCell = ({ account, columnName, group, groups, handleRemoveUserFromGroup, handleUserGroupChange }) => {
+  const email = _.get(account, "emails[0].address");
+
   if (columnName === "name") {
+    const name = account.name || email.split("@")[0];
     return (
       <div className="table-cell body-first">
         <img className="accounts-img-tag" src={getGravatar(account)} />
-        <span><b>{account.name}</b></span>
+        <span><b>{name}</b></span>
       </div>
     );
   }
@@ -17,7 +20,7 @@ const GroupsTableCell = ({ account, columnName, group, groups, handleRemoveUserF
   if (columnName === "email") {
     return (
       <div className="table-cell body">
-        <span>{_.get(account, "emails[0].address")}</span>
+        <span>{email}</span>
       </div>
     );
   }
